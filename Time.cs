@@ -10,9 +10,9 @@ namespace TimeClock
 {
 	public class Time
 	{
-		public uint Seconds { get; set; }
-		public uint Minutes { get; set; }
 		public uint Hours { get; set; }
+		public uint Minutes { get; set; }
+		public uint Seconds { get; set; }
 
 		public Time()
 		{
