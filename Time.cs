@@ -29,9 +29,9 @@ namespace TimeClock
 				Minutes = 0,
 				Seconds = 0
 			};
-
 			return this + addition;
 		}
+
 		public Time AddMinutes(uint minutes) // 1
 		{
 			Time addition = new Time
@@ -106,10 +106,51 @@ namespace TimeClock
 			return result;
 		}
 
+		public static Time Now() 
+		{
+			Time now = new Time
+			{
+				Hours = Convert.ToUInt32(DateTime.Now.Hour),
+				Minutes = Convert.ToUInt32(DateTime.Now.Minute),
+				Seconds = Convert.ToUInt32(DateTime.Now.Second)
+			};
+			return now;
+			// idk how to get time values w/o DateTime class
+		}
+
+		/// <summary>Gives time string in deafault format (HH:mm:SS).</summary>
+		/// <returns>Time string</returns>
 		public override string ToString()
 		{
 			base.ToString();
-			return String.Format("{0:D2}:{1:D2}:{2:D2}", Hours, Minutes, Seconds);
+			return $"{Hours:D2}:{Minutes:D2}:{Seconds:D2}";
+		}
+
+		/// <summary>
+		/// Returns time string in given format<br></br>
+		/// HH - Hours, mm - minutes, SS - seconds
+		/// </summary>
+		/// <param name="format">Format of output time string</param>
+		/// <returns>Time string</returns>
+		public string ToString(string format)
+		{
+			string result = format;
+			result = result.Replace("HH", $"{Hours.ToString():D2}");
+			result = result.Replace("mm", $"{Minutes.ToString():D2}");
+			result = result.Replace("SS", $"{Seconds.ToString():D2}");
+			return result;
+		}
+
+		/// <summary>
+		/// Gets time from string.<br></br>
+		/// Default format: HH:mm:SS
+		/// </summary>
+		/// <param name="time">Time string</param>
+		public void FromString(string time)
+		{
+			Hours = Convert.ToUInt32(time.Split(':')[0]);
+			Minutes = Convert.ToUInt32(time.Split(':')[1]);
+			Seconds = Convert.ToUInt32(time.Split(':')[2]);
 		}
 
 		public static Time operator +(Time t1, Time t2) // 1, 3, 4
